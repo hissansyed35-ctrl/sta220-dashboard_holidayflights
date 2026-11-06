@@ -15,7 +15,7 @@ airport_rates <- bts_holiday |>
     flights_departed = sum(CANCELLED ==0), 
     flights_delayed = sum(DEP_DEL15 ==1 & CANCELLED ==0), 
     flights_cancelled = sum(CANCELLED ==1), 
-    pct_delay = flights_delayed / flights_departed * 100, 
+    pct_delayed = flights_delayed / flights_departed * 100, 
     pct_cancelled = flights_cancelled / flights_scheduled * 100, 
     .group = "drop"  #removes the grouping afterward, so later steps don’t get confused
     )
