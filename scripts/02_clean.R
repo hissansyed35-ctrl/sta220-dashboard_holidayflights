@@ -43,3 +43,44 @@ bts_holiday |>
 # Expect 50 rows: one per travel day 
 bts_holiday |> 
   count(YEAR, MONTH, DAY_OF_MONTH)
+
+
+
+
+
+
+
+
+# T-100 passenger data =============================================
+
+# Keep scheduled passenger flights from our airports ---------------
+
+# CLASS "F" = scheduled passenger service, which matches the
+# on-time data (scheduled flights only)
+t100_nyc <- t100_raw |>
+  filter(CLASS == "F",
+         ORIGIN %in% c("EWR", "JFK", "LGA"))
+
+dim(t100_nyc)
+
+# Total passengers per airport per month ---------------------------
+
+# Each row is one airline + route + month, so we add them up
+t100_monthly <- t100_nyc |>
+  group_by(ORIGIN, YEAR, MONTH) |>
+  summarize(
+    passengers = sum(PASSENGERS),
+    flights    = sum(DEPARTURES_PERFORMED),
+    .groups = "drop"
+  )
+
+# Expect 30 rows: 3 airports x 5 years x 2 months
+dim(t100_monthly)
+t100_monthly
+
+# Key check: airport + year + month should be unique ---------------
+
+# Expect 0 rows
+t100_monthly |>
+  count(ORIGIN, YEAR, MONTH) |>
+  filter(n > 1)

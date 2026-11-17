@@ -78,3 +78,40 @@ ggsave("output/fig02_thanksgiving_delays.png",
        plot = fig_thanks,
        width = 7,
        height = 5)
+
+
+
+
+
+# Passengers vs. delays figure =====================================
+
+# Passengers in millions, so the axis is easy to read --------------
+
+delays_passengers_plot <- delays_passengers |>
+  mutate(passengers_millions = passengers / 1000000)
+
+# Figure ------------------------------------------------------------
+
+fig_busy <- ggplot(delays_passengers_plot,
+                   aes(x = passengers_millions,
+                       y = pct_delayed,
+                       color = ORIGIN)) +
+  geom_point(size = 3) +
+  labs(
+    title = "Are busier months more delayed at NYC airports?",
+    subtitle = "Each point is one airport in one holiday period (Thanksgiving or Christmas), 2021-2025.",
+    x = "Passengers boarding domestic flights that month (millions)",
+    y = "Holiday flights delayed 15+ min (%)",
+    color = "Airport",
+    caption = "Sources: U.S. DOT, Bureau of Transportation Statistics: On-Time Performance and T-100 Domestic Segment, 2021-2025. Passengers are monthly totals; delays are for holiday travel days only.",
+    alt = "Scatter plot of monthly domestic passengers against the percent of holiday flights delayed 15 or more minutes, for Newark, JFK, and LaGuardia, Thanksgiving and Christmas 2021-2025. Each airport is a different color."
+  )
+
+fig_busy
+
+# Save --------------------------------------------------------------
+
+ggsave("output/fig03_passengers_vs_delays.png",
+       plot = fig_busy,
+       width = 7,
+       height = 5)
