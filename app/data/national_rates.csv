@@ -1,0 +1,3 @@
+holiday,flights_scheduled,flights_departed,flights_delayed,flights_cancelled,pct_delayed,pct_cancelled
+Christmas,655127,637322,171405,17805,26.894568208848902,2.7177936491703134
+Thanksgiving,489433,488020,82710,1413,16.94807589852875,0.2887014157198227

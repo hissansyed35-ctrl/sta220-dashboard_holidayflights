@@ -98,3 +98,18 @@ airport_year_rates |>
 t100_monthly |>
   anti_join(airport_year_rates,
             by = c("ORIGIN", "YEAR", "MONTH"))
+
+
+
+
+
+
+
+
+
+
+# Save the tables the dashboard reads ------------------------------
+
+write_csv(airport_rates, "app/data/airport_rates.csv")
+write_csv(national_rates, "app/data/national_rates.csv")
+write_csv(delays_passengers, "app/data/delays_passengers.csv")
